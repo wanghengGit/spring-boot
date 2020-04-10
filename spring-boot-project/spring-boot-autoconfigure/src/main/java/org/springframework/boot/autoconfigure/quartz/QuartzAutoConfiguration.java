@@ -52,6 +52,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author Vedran Pavic
  * @author Stephane Nicoll
  * @since 2.0.0
+ * @date 20200407
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ Scheduler.class, SchedulerFactoryBean.class, PlatformTransactionManager.class })

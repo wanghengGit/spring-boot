@@ -54,6 +54,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Phillip Webb
  * @see #setBeanNameGenerator(BeanNameGenerator)
+ * @date 20200406
  */
 class BeanDefinitionLoader {
 
@@ -132,15 +133,19 @@ class BeanDefinitionLoader {
 
 	private int load(Object source) {
 		Assert.notNull(source, "Source must not be null");
+		//如果是class类型，启用注解类型
 		if (source instanceof Class<?>) {
 			return load((Class<?>) source);
 		}
+		//如果是resource类型，启用xml解析
 		if (source instanceof Resource) {
 			return load((Resource) source);
 		}
+		//如果是package类型，启用扫描包，例如：@ComponentScan
 		if (source instanceof Package) {
 			return load((Package) source);
 		}
+		//如果是字符串类型，直接加载
 		if (source instanceof CharSequence) {
 			return load((CharSequence) source);
 		}
@@ -153,7 +158,10 @@ class BeanDefinitionLoader {
 			GroovyBeanDefinitionSource loader = BeanUtils.instantiateClass(source, GroovyBeanDefinitionSource.class);
 			load(loader);
 		}
+		//判断启动类中是否包含@component注解，可我们的启动类并没有该注解。继续跟进会发现
+		// ，AnnotationUtils判断是否包含该注解是通过递归实现，注解上的注解若包含指定类型也是可以的
 		if (isComponent(source)) {
+			//以注解的方式，将启动类bean信息存入beanDefinitionMap
 			this.annotatedReader.register(source);
 			return 1;
 		}

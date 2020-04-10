@@ -68,6 +68,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @author Andy Wilkinson
  * @since 2.0.0
  * @see #configure(SpringApplicationBuilder)
+ * @date 20200404
  */
 public abstract class SpringBootServletInitializer implements WebApplicationInitializer {
 
@@ -89,6 +90,7 @@ public abstract class SpringBootServletInitializer implements WebApplicationInit
 		// Logger initialization is deferred in case an ordered
 		// LogServletContextInitializer is being used
 		this.logger = LogFactory.getLog(getClass());
+		//创建IOC容器
 		WebApplicationContext rootAppContext = createRootApplicationContext(servletContext);
 		if (rootAppContext != null) {
 			servletContext.addListener(new ContextLoaderListener(rootAppContext) {
@@ -105,6 +107,7 @@ public abstract class SpringBootServletInitializer implements WebApplicationInit
 	}
 
 	protected WebApplicationContext createRootApplicationContext(ServletContext servletContext) {
+		//创建Spring应用构建器，并进行相关属性设置
 		SpringApplicationBuilder builder = createSpringApplicationBuilder();
 		builder.main(getClass());
 		ApplicationContext parent = getExistingRootWebApplicationContext(servletContext);
@@ -115,8 +118,11 @@ public abstract class SpringBootServletInitializer implements WebApplicationInit
 		}
 		builder.initializers(new ServletContextApplicationContextInitializer(servletContext));
 		builder.contextClass(AnnotationConfigServletWebServerApplicationContext.class);
+		//调用configure方法，创建war类型的web项目后，由于编写SpringBootServletInitializer的子类重写configure方法，
+		//所以此处调用的是我们定义的子类重写的configure方法
 		builder = configure(builder);
 		builder.listeners(new WebEnvironmentPropertySourceInitializer(servletContext));
+		//通过构建器构建了一个Spring应用
 		SpringApplication application = builder.build();
 		if (application.getAllSources().isEmpty()
 				&& MergedAnnotations.from(getClass(), SearchStrategy.TYPE_HIERARCHY).isPresent(Configuration.class)) {
@@ -129,6 +135,7 @@ public abstract class SpringBootServletInitializer implements WebApplicationInit
 		if (this.registerErrorPageFilter) {
 			application.addPrimarySources(Collections.singleton(ErrorPageFilterConfiguration.class));
 		}
+		//启动Spring应用
 		return run(application);
 	}
 
@@ -147,6 +154,7 @@ public abstract class SpringBootServletInitializer implements WebApplicationInit
 	 * Called to run a fully configured {@link SpringApplication}.
 	 * @param application the application to run
 	 * @return the {@link WebApplicationContext}
+	 * Spring应用启动，创建并返回IOC容器
 	 */
 	protected WebApplicationContext run(SpringApplication application) {
 		return (WebApplicationContext) application.run();

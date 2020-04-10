@@ -35,6 +35,8 @@ import org.springframework.boot.loader.jar.Handler;
  * @author Dave Syer
  * @author Andy Wilkinson
  * @since 1.0.0
+ * @date 20200405
+ * LaunchedURLClassLoader来加载/lib下面的jar，并以一个新线程启动应用的Main函数
  */
 public class LaunchedURLClassLoader extends URLClassLoader {
 

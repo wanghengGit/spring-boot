@@ -26,6 +26,7 @@ import org.springframework.boot.loader.archive.Archive;
  * @author Phillip Webb
  * @author Andy Wilkinson
  * @since 1.0.0
+ * @date 20200405
  */
 public class JarLauncher extends ExecutableArchiveLauncher {
 
@@ -48,6 +49,11 @@ public class JarLauncher extends ExecutableArchiveLauncher {
 		return entry.getName().startsWith(BOOT_INF_LIB);
 	}
 
+	/**
+	 * TODO main和业务main
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		new JarLauncher().launch(args);
 	}

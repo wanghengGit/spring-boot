@@ -24,6 +24,8 @@ import org.springframework.context.ApplicationEvent;
  *
  * @author Phillip Webb
  * @since 1.0.0
+ * @date 20200406
+ * spring-boot中定义的事件（上面说的6种事件），继承自ApplicationEvent（spring中定义的）
  */
 @SuppressWarnings("serial")
 public abstract class SpringApplicationEvent extends ApplicationEvent {

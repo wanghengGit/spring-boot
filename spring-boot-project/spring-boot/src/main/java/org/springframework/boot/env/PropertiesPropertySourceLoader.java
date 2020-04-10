@@ -32,6 +32,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
  * @author Phillip Webb
  * @author Madhura Bhave
  * @since 1.0.0
+ * @date 20200410
  */
 public class PropertiesPropertySourceLoader implements PropertySourceLoader {
 

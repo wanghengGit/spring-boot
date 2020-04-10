@@ -1,0 +1,7 @@
+
+Spring Boot继承了Spring的优点，并新增了一些新功能和特性
+（0）从字面理解，Boot是引导的意思，因此SpringBoot帮助开发者快速搭建Spring框架，Spring 项目引导页面可以在几秒构建一个项目
+（1）Spring Boot 内置了多种种强大的测试框架，只需要在项目中引入spring-boot-start-test依赖包
+（2）Spring Boot 的自动配置让配置变简单；
+（3）SpringBoot的起步依赖让依赖管理更加简单；
+（4）Spring Boot Actuator对应用系统监控的集成功能；

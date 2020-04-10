@@ -22,8 +22,9 @@ import org.springframework.util.ClassUtils;
  * An enumeration of possible types of web application.
  *
  * @author Andy Wilkinson
- * @author Brian Clozel
+ * @author Brian ClozelspringBootServletInitizer
  * @since 2.0.0
+ * @date 20200403
  */
 public enum WebApplicationType {
 
@@ -57,7 +58,7 @@ public enum WebApplicationType {
 	private static final String SERVLET_APPLICATION_CONTEXT_CLASS = "org.springframework.web.context.WebApplicationContext";
 
 	private static final String REACTIVE_APPLICATION_CONTEXT_CLASS = "org.springframework.boot.web.reactive.context.ReactiveWebApplicationContext";
-
+	//判断当前的应用服务属于什么类型
 	static WebApplicationType deduceFromClasspath() {
 		if (ClassUtils.isPresent(WEBFLUX_INDICATOR_CLASS, null) && !ClassUtils.isPresent(WEBMVC_INDICATOR_CLASS, null)
 				&& !ClassUtils.isPresent(JERSEY_INDICATOR_CLASS, null)) {
