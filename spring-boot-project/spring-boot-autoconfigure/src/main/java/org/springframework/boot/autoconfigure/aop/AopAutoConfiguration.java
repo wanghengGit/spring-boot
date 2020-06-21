@@ -38,6 +38,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author Josh Long
  * @since 1.0.0
  * @see EnableAspectJAutoProxy
+ * @date 20200410
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ EnableAspectJAutoProxy.class, Aspect.class, Advice.class, AnnotatedElement.class })

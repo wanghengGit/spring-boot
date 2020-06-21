@@ -31,6 +31,7 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * @author Phillip Webb
  * @since 1.0.0
  * @date 20200410
+ * 配置文件加载
  */
 public interface PropertySourceLoader {
 
