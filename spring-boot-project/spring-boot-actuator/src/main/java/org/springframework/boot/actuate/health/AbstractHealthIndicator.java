@@ -35,6 +35,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Christian Dupuis
  * @since 1.1.0
+ * @date 20200628
  */
 public abstract class AbstractHealthIndicator implements HealthIndicator {
 

@@ -28,6 +28,9 @@ import org.springframework.core.annotation.Order;
  * @author Phillip Webb
  * @since 1.3.0
  * @see CommandLineRunner
+ * @author kit
+ * @date 20200911
+ * 非web项目
  */
 @FunctionalInterface
 public interface ApplicationRunner {

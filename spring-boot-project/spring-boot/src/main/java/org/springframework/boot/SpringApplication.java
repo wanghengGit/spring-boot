@@ -158,6 +158,7 @@ import org.springframework.web.context.support.StandardServletEnvironment;
  * @see #run(Class[], String[])
  * @see #SpringApplication(Class...)
  * @date 20200506
+ * @author kit
  */
 public class SpringApplication {
 
@@ -622,6 +623,7 @@ public class SpringApplication {
 		if (contextClass == null) {
 			try {
 				switch (this.webApplicationType) {
+					//创建AnnotationConfigServletWebServerApplicationContext
 				case SERVLET:
 					contextClass = Class.forName(DEFAULT_SERVLET_WEB_CONTEXT_CLASS);
 					break;

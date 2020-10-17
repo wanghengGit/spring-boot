@@ -29,6 +29,7 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * @author Phillip Webb
  * @since 2.0.0
  * @see ApplicationContextAware
+ * @date 20200621
  */
 @FunctionalInterface
 public interface SpringBootExceptionReporter {

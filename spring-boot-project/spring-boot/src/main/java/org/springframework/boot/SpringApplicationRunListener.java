@@ -33,6 +33,7 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
  * @author Andy Wilkinson
  * @since 1.0.0
  * @date 20200410
+ * @author kit
  */
 public interface SpringApplicationRunListener {
 

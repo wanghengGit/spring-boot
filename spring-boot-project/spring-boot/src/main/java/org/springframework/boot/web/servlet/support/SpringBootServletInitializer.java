@@ -69,6 +69,9 @@ import org.springframework.web.context.WebApplicationContext;
  * @since 2.0.0
  * @see #configure(SpringApplicationBuilder)
  * @date 20200404
+ * @author kit
+ * @date 20200911
+ * servlet环境
  */
 public abstract class SpringBootServletInitializer implements WebApplicationInitializer {
 

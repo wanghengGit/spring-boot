@@ -32,6 +32,8 @@ import org.springframework.core.annotation.Order;
  * @since 1.0.0
  * @see ApplicationRunner
  * @date 20200414
+ * @author kit
+ * 非web项目
  */
 @FunctionalInterface
 public interface CommandLineRunner {

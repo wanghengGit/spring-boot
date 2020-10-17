@@ -22,6 +22,8 @@ package org.springframework.boot.actuate.health;
  * @author Dave Syer
  * @since 1.0.0
  * @see ApplicationHealthIndicator
+ * @date 20200628
+ * 健康检查
  */
 @FunctionalInterface
 public interface HealthIndicator {

@@ -46,6 +46,7 @@ import org.springframework.core.annotation.AliasFor;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  * @since 1.2.0
+ * @date 20200627
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
