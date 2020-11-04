@@ -33,6 +33,8 @@ import org.springframework.util.StringUtils;
  * Class used by {@link SpringApplication} to print the application banner.
  *
  * @author Phillip Webb
+ * @author kit
+ * @date 20201104
  */
 class SpringApplicationBannerPrinter {
 
@@ -55,6 +57,13 @@ class SpringApplicationBannerPrinter {
 		this.fallbackBanner = fallbackBanner;
 	}
 
+	/**
+	 * 打印banner
+	 * @param environment
+	 * @param sourceClass
+	 * @param logger
+	 * @return
+	 */
 	Banner print(Environment environment, Class<?> sourceClass, Log logger) {
 		Banner banner = getBanner(environment);
 		try {
@@ -65,13 +74,23 @@ class SpringApplicationBannerPrinter {
 		}
 		return new PrintedBanner(banner, sourceClass);
 	}
-
+	/**
+	 * 打印banner
+	 * @param environment
+	 * @param sourceClass
+	 * @return
+	 */
 	Banner print(Environment environment, Class<?> sourceClass, PrintStream out) {
 		Banner banner = getBanner(environment);
 		banner.printBanner(environment, sourceClass, out);
 		return new PrintedBanner(banner, sourceClass);
 	}
 
+	/**
+	 * 获取banner
+	 * @param environment
+	 * @return
+	 */
 	private Banner getBanner(Environment environment) {
 		Banners banners = new Banners();
 		banners.addIfNotNull(getImageBanner(environment));

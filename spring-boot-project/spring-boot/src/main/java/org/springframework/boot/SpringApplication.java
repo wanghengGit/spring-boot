@@ -157,8 +157,8 @@ import org.springframework.web.context.support.StandardServletEnvironment;
  * @see #run(Class, String[])
  * @see #run(Class[], String[])
  * @see #SpringApplication(Class...)
- * @date 20200506
  * @author kit
+ * @date 20201104
  */
 public class SpringApplication {
 
@@ -300,6 +300,14 @@ public class SpringApplication {
 	 * {@link ApplicationContext}.
 	 * @param args the application arguments (usually passed from a Java main method)
 	 * @return a running {@link ApplicationContext}
+	 * TODO
+	 * 第一步：获取并启动监听器
+	 * 第二步：构造容器环境
+	 * 第三步：创建容器
+	 * 第四步：实例化SpringBootExceptionReporter.class，用来支持报告关于启动的错误
+	 * 第五步：准备容器
+	 * 第六步：刷新容器
+	 * 第七步：刷新容器后的扩展接口
 	 */
 	public ConfigurableApplicationContext run(String... args) {
 		//时间监控
@@ -389,6 +397,15 @@ public class SpringApplication {
 		}
 	}
 
+	/**
+	 * 准备容器
+	 * 这一步主要是在容器刷新之前的准备动作。包含一个非常关键的操作：将启动类注入容器，为后续开启自动化配置奠定基础
+	 * @param context
+	 * @param environment
+	 * @param listeners
+	 * @param applicationArguments
+	 * @param printedBanner
+	 */
 	private void prepareContext(ConfigurableApplicationContext context, ConfigurableEnvironment environment,
 			SpringApplicationRunListeners listeners, ApplicationArguments applicationArguments, Banner printedBanner) {
 		//设置容器环境，包括各种变量
@@ -429,6 +446,11 @@ public class SpringApplication {
 		listeners.contextLoaded(context);
 	}
 
+	/**
+	 * 刷新容器
+	 * 执行到这里，springBoot相关的处理工作已经结束，接下的工作就交给了spring
+	 * @param context
+	 */
 	private void refreshContext(ConfigurableApplicationContext context) {
 		refresh(context);
 		if (this.registerShutdownHook) {
@@ -456,6 +478,14 @@ public class SpringApplication {
 		return getSpringFactoriesInstances(type, new Class<?>[] {});
 	}
 
+	/**
+	 * getSpringFactoriesInstances方法会加载META-INF/spring.factories文件
+	 * @param type
+	 * @param parameterTypes
+	 * @param args
+	 * @param <T>
+	 * @return
+	 */
 	private <T> Collection<T> getSpringFactoriesInstances(Class<T> type, Class<?>[] parameterTypes, Object... args) {
 		ClassLoader classLoader = getClassLoader();
 		// Use names and ensure unique to protect against duplicates
@@ -598,6 +628,11 @@ public class SpringApplication {
 		}
 	}
 
+	/**
+	 * 打印banner
+	 * @param environment
+	 * @return
+	 */
 	private Banner printBanner(ConfigurableEnvironment environment) {
 		if (this.bannerMode == Banner.Mode.OFF) {
 			return null;
@@ -617,6 +652,10 @@ public class SpringApplication {
 	 * class before falling back to a suitable default.
 	 * @return the application context (not yet refreshed)
 	 * @see #setApplicationContextClass(Class)
+	 * 创建容器
+	 * 可以看出，这里创建容器的类型 还是根据webApplicationType进行判断的，上一篇已经讲述了该变量如何赋值的过程。
+	 * 因为该类型为SERVLET类型，所以会通过反射装载对应的字节码
+	 * 该对象是springBoot2创建的容器，后续所有的操作都会基于该容器
 	 */
 	protected ConfigurableApplicationContext createApplicationContext() {
 		Class<?> contextClass = this.applicationContextClass;
@@ -646,6 +685,7 @@ public class SpringApplication {
 	 * Apply any relevant post processing the {@link ApplicationContext}. Subclasses can
 	 * apply additional processing as required.
 	 * @param context the application context
+	 * 1）容器的后置处理
 	 */
 	protected void postProcessApplicationContext(ConfigurableApplicationContext context) {
 		if (this.beanNameGenerator != null) {
@@ -727,8 +767,9 @@ public class SpringApplication {
 	 * Load beans into the application context.
 	 * @param context the context to load beans into
 	 * @param sources the sources to load
+	 * 2）加载启动指定类（重点）
 	 * 这里会将我们的启动类加载spring容器beanDefinitionMap中，为后续springBoot 自动化配置奠定基础，
-	 * springBoot为我们提供的各种注解配置也与此有关
+	 * springBoot为我们提供的各种注解配置也与此有关。
 	 */
 	protected void load(ApplicationContext context, Object[] sources) {
 		if (logger.isDebugEnabled()) {
@@ -807,6 +848,8 @@ public class SpringApplication {
 	 * Called after the context has been refreshed.
 	 * @param context the application context
 	 * @param args the application arguments
+	 *  扩展接口，设计模式中的模板方法，默认为空实现。如果有自定义需求，可以重写该方法。
+	 *  比如打印一些启动结束log，或者一些其它后置处理
 	 */
 	protected void afterRefresh(ConfigurableApplicationContext context, ApplicationArguments args) {
 	}

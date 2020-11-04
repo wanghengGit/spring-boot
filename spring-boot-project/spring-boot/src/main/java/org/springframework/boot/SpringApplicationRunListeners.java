@@ -61,6 +61,10 @@ class SpringApplicationRunListeners {
 		}
 	}
 
+	/**
+	 * 3）通知监听器，容器已准备就绪
+	 * @param context
+	 */
 	void contextLoaded(ConfigurableApplicationContext context) {
 		for (SpringApplicationRunListener listener : this.listeners) {
 			listener.contextLoaded(context);

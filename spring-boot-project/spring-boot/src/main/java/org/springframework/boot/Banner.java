@@ -27,6 +27,8 @@ import org.springframework.core.env.Environment;
  * @author Michael Stummvoll
  * @author Jeremy Rickard
  * @since 1.2.0
+ * @author kit
+ * @date 20201104
  */
 @FunctionalInterface
 public interface Banner {
