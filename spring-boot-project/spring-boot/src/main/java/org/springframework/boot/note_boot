@@ -5,3 +5,20 @@
 第五步：准备容器
 第六步：刷新容器
 第七步：刷新容器后的扩展接口
+
+
+mybatis集成到springboot中，主要是基于两大核心特性，
+一是springboot的自动配置特性，在路径下的META-INF目录的spring.factories文件配置需要加载的类，
+二是利用spring的@Import的ImportBeanDefinitionRegistrar特性，根据注解上指定的属性来加载配置。
+其实其它的技术（如Redis、RabbitMQ、JPA、Swagger等等）通过自动配置的方法集成到springboot环境中，基本都是通过这两种特性来实现
+
+
+Mybatis自动加载的原理基本上可以总结如下：
+
+1. mybatis-spring-boot-starter将mybatis需要的依赖全部引入
+
+2. starter同时通过SPI机制引入了一个配置Class：MybatisAutoConfiguration，它负责注册SqlSessionFactory和SqlSessionTemplate到Spring容器中，我们使用Mybatis时绝大部分功能靠这两个Bean实现
+
+3. 引入了AutoConfiguredMapperScannerRegistrar这个bean到Spring容器，它负责将MapperScanner引入Spring容器，然后MapperScanner会将工程中所有的Dao扫描出来转换为BeanDefinition并且注册到Spring容器中
+
+4. 当开发的工程中使用了某个Dao时，Spring能够从容器中找到这个Dao对应的BeanDefinition，将其实例化并且注入，这样开发者就可以使用了，这也是为何我们只定义了Dao的接口，但是工程运行时能够有实例Bean的原因
