@@ -104,6 +104,7 @@ import org.springframework.util.StringUtils;
  * @since 1.0.0
  * @date 20200410
  * 和配置文件有关的监听器类型
+ * 该监听器非常核心，主要用来处理项目配置。项目中的 properties 和yml文件都是其内部类所加载
  */
 public class ConfigFileApplicationListener implements EnvironmentPostProcessor, SmartApplicationListener, Ordered {
 
@@ -183,6 +184,10 @@ public class ConfigFileApplicationListener implements EnvironmentPostProcessor, 
 		}
 	}
 
+	/**
+	 * 首先方法执行入口：
+	 * @param event
+	 */
 	private void onApplicationEnvironmentPreparedEvent(ApplicationEnvironmentPreparedEvent event) {
 		List<EnvironmentPostProcessor> postProcessors = loadPostProcessors();
 		postProcessors.add(this);

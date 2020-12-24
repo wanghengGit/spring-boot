@@ -363,7 +363,7 @@ public class SpringApplication {
 		}
 		return context;
 	}
-
+	//构造容器环境
 	private ConfigurableEnvironment prepareEnvironment(SpringApplicationRunListeners listeners,
 			ApplicationArguments applicationArguments) {
 		// Create and configure the environment
@@ -399,7 +399,8 @@ public class SpringApplication {
 
 	/**
 	 * 准备容器
-	 * 这一步主要是在容器刷新之前的准备动作。包含一个非常关键的操作：将启动类注入容器，为后续开启自动化配置奠定基础
+	 * 这一步主要是在容器刷新之前的准备动作。
+	 * 包含一个非常关键的操作：将启动类注入容器，为后续开启自动化配置奠定基础
 	 * @param context
 	 * @param environment
 	 * @param listeners

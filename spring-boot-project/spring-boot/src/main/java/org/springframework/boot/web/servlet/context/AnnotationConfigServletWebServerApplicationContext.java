@@ -54,6 +54,8 @@ import org.springframework.util.ClassUtils;
  * @see ServletWebServerApplicationContext
  * @see AnnotationConfigServletWebApplicationContext
  * @since 1.0.0
+ * 注意：在 springBoot2版本以前，该容器的名称为 AnnotationConfigServletWebServerApplicationContext，
+ * 在最新的版本中才改名为 AnnotationConfigServletWebServerApplicationContext
  */
 public class AnnotationConfigServletWebServerApplicationContext extends ServletWebServerApplicationContext
 		implements AnnotationConfigRegistry {
